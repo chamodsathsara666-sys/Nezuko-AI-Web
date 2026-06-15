@@ -14,7 +14,7 @@ def get_image_base64(path):
         encoded_string = base64.b64encode(image_file.read()).decode()
     return f"data:image/png;base64,{encoded_string}"
 
-# 2. පින්තූර Cache කිරීම (Background එකත් සමඟ)
+# 2. පින්තූර Cache කිරීම
 if "cached_images" not in st.session_state:
     st.session_state.cached_images = {}
     paths = {
@@ -30,18 +30,18 @@ if "cached_images" not in st.session_state:
         except:
             st.session_state.cached_images[key] = ""
 
-# Background image data එක ලබා ගැනීම
 bg_img = st.session_state.cached_images.get("bg")
 
-# --- CSS Floating, Draggable & Background Image ---
+# --- CSS Floating, Draggable & Full-Screen Background ---
 st.markdown(f"""
     <style>
-    /* මුළු ඇප් එකටම Background එක දැමීම */
+    /* මුළු ස්ක්‍රීන් එකම ආවරණය වන පරිදි background */
     .stApp {{
         background-image: url('{bg_img}');
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
+        background-size: cover !important;
+        background-position: center center !important;
+        background-repeat: no-repeat !important;
+        background-attachment: fixed !important;
     }}
 
     .nezuko-float {{
@@ -86,7 +86,6 @@ st.markdown(f"""
 if "expression" not in st.session_state:
     st.session_state.expression = "normal"
 
-# Floating Image පෙන්වීම
 img_base64 = st.session_state.cached_images.get(st.session_state.expression)
 if img_base64:
     st.markdown(f'<img src="{img_base64}" class="nezuko-float">', unsafe_allow_html=True)
