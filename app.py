@@ -1,15 +1,12 @@
 import streamlit as st
-import google.generativeai as genai
+from groq import Groq
 
-st.set_page_config(page_title="Nezuko AI", page_icon="🌸")
-st.title("🌸 Nezuko AI Assistant")
+st.title("🌸 Nezuko AI (Powered by Groq)")
 
-# මෙතැනට ඔයාගේ Gemini API Key එක දෙන්න
-api_key = st.text_input("Gemini API Key එක මෙතැනට දෙන්න:", type="password")
+api_key = st.text_input("Groq API Key එක මෙතැනට දෙන්න:", type="password")
 
 if api_key:
-    genai.configure(api_key=api_key)
-    model = genai.GenerativeModel(model_name='gemini-1.5-flash')
+    client = Groq(api_key=api_key)
     
     if "messages" not in st.session_state:
         st.session_state.messages = []
@@ -18,12 +15,17 @@ if api_key:
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
 
-    if prompt := st.chat_input("Nezuko ගෙන් මොනවා හරි අහන්න..."):
+    if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
         st.session_state.messages.append({"role": "user", "content": prompt})
         with st.chat_message("user"):
             st.markdown(prompt)
 
+        chat_completion = client.chat.completions.create(
+            messages=[{"role": "user", "content": f"You are Nezuko. Answer: {prompt}"}],
+            model="llama3-8b-8192",
+        )
+        
+        response = chat_completion.choices[0].message.content
         with st.chat_message("assistant"):
-            response = model.generate_content(f"You are Nezuko from Demon Slayer. Act lovely and supportive. User says: {prompt}")
-            st.markdown(response.text)
-            st.session_state.messages.append({"role": "assistant", "content": response.text})
+            st.markdown(response)
+            st.session_state.messages.append({"role": "assistant", "content": response})
