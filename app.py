@@ -64,7 +64,7 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
     response_lower = response.lower()
     user_input_lower = prompt.lower()
     
-    bad_words = ["fuck", "ass", "shit", "mad","shutup"] 
+    bad_words = ["fuck", "ass", "shit", "mad","shut up"] 
     
     if any(word in user_input_lower for word in bad_words):
         st.session_state.expression = "sad"
