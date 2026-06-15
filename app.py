@@ -24,7 +24,7 @@ if "cached_images" not in st.session_state:
         except:
             st.session_state.cached_images[key] = ""
 
-# --- CSS Floating Avatar (ලොකු කරලා සහ Smooth කරලා) ---
+# --- CSS Floating & Draggable Avatar ---
 st.markdown("""
     <style>
     .nezuko-float {
@@ -37,9 +37,28 @@ st.markdown("""
         border: 4px solid #ff99cc;
         z-index: 1000;
         box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        transition: all 0.5s ease;
+        cursor: grab;
+        transition: transform 0.1s ease;
     }
+    .nezuko-float:active { cursor: grabbing; }
     </style>
+    <script>
+    const img = document.querySelector('.nezuko-float');
+    let isDragging = false;
+    img.onmousedown = (e) => {
+        isDragging = true;
+        let shiftX = e.clientX - img.getBoundingClientRect().left;
+        let shiftY = e.clientY - img.getBoundingClientRect().top;
+        function moveAt(pageX, pageY) {
+            img.style.left = pageX - shiftX + 'px';
+            img.style.top = pageY - shiftY + 'px';
+            img.style.right = 'auto'; // Disable right constraint
+        }
+        function onMouseMove(e) { if(isDragging) moveAt(e.pageX, e.pageY); }
+        document.addEventListener('mousemove', onMouseMove);
+        document.onmouseup = () => { isDragging = false; document.removeEventListener('mousemove', onMouseMove); };
+    };
+    </script>
 """, unsafe_allow_html=True)
 
 # 3. Expressions Logic
