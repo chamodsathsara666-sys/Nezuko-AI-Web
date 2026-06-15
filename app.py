@@ -38,10 +38,12 @@ for message in st.session_state.messages:
 
 # 5. චැට් ඉන්පුට් සහ රියැක්ශන් ලොජික්
 if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
+    # User ගේ පණිවිඩය පෙන්වීම
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
 
+    # Groq API එක හරහා පිළිතුරු ලබාගැනීම
     chat_completion = client.chat.completions.create(
         messages=[
             {"role": "system", "content": "You are Nezuko. You are lovely, energetic, happy, and affectionate. If the user is Chamod, be extra sweet. Always ask for their name first. Based on your reply, use keywords like 'lovely', 'happy', or 'sad' to trigger reactions."},
@@ -52,14 +54,21 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
     
     response = chat_completion.choices[0].message.content
     
+    # Assistant ගේ පිළිතුර පෙන්වීම
     with st.chat_message("assistant", avatar="nezuko.png"):
         st.markdown(response)
         st.session_state.messages.append({"role": "assistant", "content": response})
 
-    # රියැක්ශන් ලොජික් එක (අන්තිමයට දාන කොටස)
+    # 6. අලුත් රියැක්ශන් ලොජික් එක (අසභ්‍ය වචනත් එක්ක)
     response_lower = response.lower()
+    user_input_lower = prompt.lower()
     
-    if "lovely" in response_lower or "kiss" in response_lower:
+    # මෙතනට ඔයාගේ අසභ්‍ය වචන ටික එකතු කරන්න
+    bad_words = ["fuck", "ass", "shit","mad"] 
+    
+    if any(word in user_input_lower for word in bad_words):
+        st.session_state.expression = "sad"
+    elif "lovely" in response_lower or "kiss" in response_lower:
         st.session_state.expression = "lovely"
     elif "happy" in response_lower or "great" in response_lower:
         st.session_state.expression = "excited"
