@@ -35,26 +35,22 @@ st.markdown("""
         height: 100px;
         border-radius: 50%;
         border: 4px solid #ff99cc;
-        z-index: 1000;
+        z-index: 10000;
         box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         cursor: grab;
         user-select: none;
         -webkit-user-drag: none;
-        transition: transform 0.1s ease;
     }
     .nezuko-float:active { cursor: grabbing; }
     </style>
     <script>
-    const initDraggable = () => {
+    function initDraggable() {
         const img = document.querySelector('.nezuko-float');
         if (!img) return;
         
-        // Prevent default browser drag behavior (the 'copy' effect)
         img.ondragstart = () => false;
         
-        let isDragging = false;
         img.onmousedown = (e) => {
-            isDragging = true;
             let shiftX = e.clientX - img.getBoundingClientRect().left;
             let shiftY = e.clientY - img.getBoundingClientRect().top;
             
@@ -63,16 +59,16 @@ st.markdown("""
                 img.style.top = pageY - shiftY + 'px';
                 img.style.right = 'auto';
             }
-            function onMouseMove(e) { if(isDragging) moveAt(e.pageX, e.pageY); }
+            
+            function onMouseMove(e) { moveAt(e.pageX, e.pageY); }
             document.addEventListener('mousemove', onMouseMove);
+            
             document.onmouseup = () => { 
-                isDragging = false; 
                 document.removeEventListener('mousemove', onMouseMove); 
             };
         };
-    };
-    // Run after page load
-    setTimeout(initDraggable, 500);
+    }
+    window.onload = initDraggable;
     </script>
 """, unsafe_allow_html=True)
 
