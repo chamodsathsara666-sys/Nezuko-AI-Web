@@ -14,20 +14,37 @@ def get_image_base64(path):
         encoded_string = base64.b64encode(image_file.read()).decode()
     return f"data:image/png;base64,{encoded_string}"
 
-# 2. පින්තූර Cache කිරීම
+# 2. පින්තූර Cache කිරීම (Background එකත් සමඟ)
 if "cached_images" not in st.session_state:
     st.session_state.cached_images = {}
-    paths = {"normal": "normal.png", "lovely": "lovely.png", "excited": "happy.png", "sad": "sad.png"}
+    paths = {
+        "normal": "normal.png", 
+        "lovely": "lovely.png", 
+        "excited": "happy.png", 
+        "sad": "sad.png",
+        "bg": "background.png"
+    }
     for key, path in paths.items():
         try:
             st.session_state.cached_images[key] = get_image_base64(path)
         except:
             st.session_state.cached_images[key] = ""
 
-# --- CSS Floating, Draggable & Anti-Copy Avatar ---
-st.markdown("""
+# Background image data එක ලබා ගැනීම
+bg_img = st.session_state.cached_images.get("bg")
+
+# --- CSS Floating, Draggable & Background Image ---
+st.markdown(f"""
     <style>
-    .nezuko-float {
+    /* මුළු ඇප් එකටම Background එක දැමීම */
+    .stApp {{
+        background-image: url('{bg_img}');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }}
+
+    .nezuko-float {{
         position: fixed;
         top: 80px;
         right: 20px;
@@ -40,34 +57,27 @@ st.markdown("""
         cursor: grab;
         user-select: none;
         -webkit-user-drag: none;
-    }
-    .nezuko-float:active { cursor: grabbing; }
+    }}
+    .nezuko-float:active {{ cursor: grabbing; }}
     </style>
     <script>
-    function initDraggable() {
+    function initDraggable() {{
         const img = document.querySelector('.nezuko-float');
         if (!img) return;
-        
         img.ondragstart = () => false;
-        
-        img.onmousedown = (e) => {
+        img.onmousedown = (e) => {{
             let shiftX = e.clientX - img.getBoundingClientRect().left;
             let shiftY = e.clientY - img.getBoundingClientRect().top;
-            
-            function moveAt(pageX, pageY) {
+            function moveAt(pageX, pageY) {{
                 img.style.left = pageX - shiftX + 'px';
                 img.style.top = pageY - shiftY + 'px';
                 img.style.right = 'auto';
-            }
-            
-            function onMouseMove(e) { moveAt(e.pageX, e.pageY); }
+            }}
+            function onMouseMove(e) {{ moveAt(e.pageX, e.pageY); }}
             document.addEventListener('mousemove', onMouseMove);
-            
-            document.onmouseup = () => { 
-                document.removeEventListener('mousemove', onMouseMove); 
-            };
-        };
-    }
+            document.onmouseup = () => {{ document.removeEventListener('mousemove', onMouseMove); }};
+        }};
+    }}
     window.onload = initDraggable;
     </script>
 """, unsafe_allow_html=True)
