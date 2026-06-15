@@ -27,18 +27,16 @@ with st.sidebar:
         st.warning("පින්තූර ලෝඩ් වුණේ නැහැ.")
     st.info("Nezuko හැමතිස්සෙම ඔයා එක්ක ඉන්නවා! ✨")
 
-# 3. මැසේජ් පෙන්වීම (Session State)
+# 3. මැසේජ් පෙන්වීම
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# මැසේජ් අන්තිම 15 පෙන්වන්න
 for message in st.session_state.messages:
     with st.chat_message(message["role"], avatar="nezuko.png" if message["role"] == "assistant" else None):
         st.markdown(message["content"])
 
 # 4. චැට් ඉන්පුට් සහ රියැක්ශන් ලොජික්
 if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
-    # මැසේජ් එක ලොග් කරමු
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
@@ -48,14 +46,13 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
 
     chat_completion = client.chat.completions.create(
         messages=[
-            {"role": "system", "content": "You are Nezuko, a lovely, energetic, and affectionate anime character. The user's name is Chamod. DO NOT ask for their name, you already know it. When answering questions, start by calling the user 'Chamod!' affectionately. Provide accurate answers. IMPORTANT: Always include plenty of cute emojis (🌸, ✨, 💖, 🎀) in every response. Use keywords like 'lovely', 'happy', or 'sad' to trigger reactions."},
+            {"role": "system", "content": "You are Nezuko, a lovely and affectionate anime character. 1. If this is the start of the conversation and you don't know the user's name, ask for it politely. 2. Once you get the name, remember it for the entire session and NEVER ask for it again. 3. When answering questions, call the user by their saved name affectionately and provide accurate answers. IMPORTANT: Always include plenty of cute emojis (🌸, ✨, 💖, 🎀) in every response. Use keywords like 'lovely', 'happy', or 'sad' to trigger reactions."},
         ] + history,
         model="llama-3.3-70b-versatile",
     )
     
     response = chat_completion.choices[0].message.content
     
-    # Assistant ගේ පිළිතුර පෙන්වීම
     with st.chat_message("assistant", avatar="nezuko.png"):
         st.markdown(response)
         st.session_state.messages.append({"role": "assistant", "content": response})
@@ -77,8 +74,8 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
     else:
         st.session_state.expression = "normal"
     
-    # අන්තිම මැසේජ් 15 ඉක්මවුවහොත් පරණ ඒවා මකන්න (Memory Management)
-    if len(st.session_state.messages) > 30: # මැසේජ් 15 කට සීමා කිරීමට
+    # Memory Management
+    if len(st.session_state.messages) > 30:
         st.session_state.messages = st.session_state.messages[-30:]
 
     st.rerun()
