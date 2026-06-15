@@ -1,8 +1,8 @@
 import streamlit as st
 from groq import Groq
 
-# API Key එක කෙලින්ම කෝඩ් එකේ දාලා තියෙන්නේ
-api_key = "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"
+# Secrets වලින් Key එක ගන්නවා
+api_key = st.secrets["GROQ_API_KEY"]
 client = Groq(api_key=api_key)
 
 st.title("🌸 Nezuko AI")
