@@ -14,22 +14,23 @@ def get_image_base64(path):
         encoded_string = base64.b64encode(image_file.read()).decode()
     return f"data:image/png;base64,{encoded_string}"
 
-# --- CSS Floating Avatar ---
+# --- CSS Floating Avatar (රවුම ලොකු කරලා) ---
 st.markdown("""
     <style>
     .nezuko-float {
         position: fixed;
         top: 80px;
         right: 20px;
-        width: 70px;
-        height: 70px;
+        width: 100px;   /* මම 70px සිට 100px දක්වා ලොකු කළා */
+        height: 100px;  /* මම 70px සිට 100px දක්වා ලොකු කළා */
         border-radius: 50%;
-        border: 3px solid #ff99cc;
+        border: 4px solid #ff99cc; /* Border එක ටිකක් ඝන කළා */
         z-index: 1000;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     }
     </style>
 """, unsafe_allow_html=True)
+
 
 # 2. Expressions
 EXPRESSION_IMAGES = {
