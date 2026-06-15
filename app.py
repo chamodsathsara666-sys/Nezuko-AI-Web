@@ -7,7 +7,17 @@ client = Groq(api_key=api_key)
 
 st.title("🌸 Nezuko AI")
 
-# 2. පින්තූර සහ Expressions Logic
+# --- අලුත් Sidebar Logic එක මෙතනට දාන්න ---
+with st.sidebar:
+    st.header("Nezuko's Mood")
+    try:
+        st.image(EXPRESSION_IMAGES[st.session_state.expression], width=300)
+    except:
+        st.warning("පින්තූර ලෝඩ් වුණේ නැහැ.")
+    st.info("Nezuko හැමතිස්සෙම ඔයා එක්ක ඉන්නවා! ✨")
+# ---------------------------------------------
+
+# 2. පින්තූර සහ Expressions Logic (පරණ කොටස)
 EXPRESSION_IMAGES = {
     "normal": "normal.png",
     "lovely": "lovely.png",
@@ -19,10 +29,7 @@ if "expression" not in st.session_state:
     st.session_state.expression = "normal"
 
 # 3. ප්‍රධාන පින්තූරය පෙන්වීම
-try:
-    st.image(EXPRESSION_IMAGES[st.session_state.expression], width=400)
-except:
-    st.warning("පින්තූර ලෝඩ් වෙලා නැහැ, GitHub එකේ ෆයිල්ස් තියෙනවද බලන්න.")
+
 
 # 4. මැසේජ් පෙන්වීම
 if "messages" not in st.session_state:
