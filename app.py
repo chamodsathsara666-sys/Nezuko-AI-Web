@@ -1,13 +1,30 @@
 import streamlit as st
 from groq import Groq
 
-# 1. API Key එක
+# 1. API Key
 api_key = st.secrets["GROQ_API_KEY"]
 client = Groq(api_key=api_key)
 
 st.title("🌸 Nezuko AI")
 
-# --- EXPRESSION_IMAGES අර්ථ දැක්වීම ---
+# --- CSS සඳහා Floating Avatar ---
+st.markdown("""
+    <style>
+    .nezuko-float {
+        position: fixed;
+        top: 80px;
+        right: 20px;
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        border: 3px solid #ff99cc;
+        z-index: 1000;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+# --- EXPRESSION_IMAGES ---
 EXPRESSION_IMAGES = {
     "normal": "normal.png",
     "lovely": "lovely.png",
@@ -18,14 +35,9 @@ EXPRESSION_IMAGES = {
 if "expression" not in st.session_state:
     st.session_state.expression = "normal"
 
-# 2. Sidebar එකේ පින්තූරය පෙන්වීම
-with st.sidebar:
-    st.header("Nezuko's Mood")
-    try:
-        st.image(EXPRESSION_IMAGES[st.session_state.expression], width=300)
-    except:
-        st.warning("පින්තූර ලෝඩ් වුණේ නැහැ.")
-    st.info("Nezuko හැමතිස්සෙම ඔයා එක්ක ඉන්නවා! ✨")
+# --- Floating Image පෙන්වීම (Sidebar අයින් කළා) ---
+img_src = EXPRESSION_IMAGES.get(st.session_state.expression, "normal.png")
+st.markdown(f'<img src="{img_src}" class="nezuko-float">', unsafe_allow_html=True)
 
 # 3. මැසේජ් පෙන්වීම
 if "messages" not in st.session_state:
@@ -35,18 +47,17 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"], avatar="nezuko.png" if message["role"] == "assistant" else None):
         st.markdown(message["content"])
 
-# 4. චැට් ඉන්පුට් සහ රියැක්ශන් ලොජික්
+# 4. චැට් ඉන්පුට්
 if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
 
-    # මැසේජ් 15 කට සීමා කරලා API එකට යැවීම
     history = st.session_state.messages[-15:]
 
     chat_completion = client.chat.completions.create(
         messages=[
-            {"role": "system", "content": "You are Nezuko, a lovely and affectionate anime character. 1. If this is the start of the conversation and you don't know the user's name, ask for it politely. 2. Once you get the name, remember it for the entire session and NEVER ask for it again. 3. When answering questions, call the user by their saved name affectionately and provide accurate answers. IMPORTANT: Always include plenty of cute emojis (🌸, ✨, 💖, 🎀) in every response. Use keywords like 'lovely', 'happy', or 'sad' to trigger reactions."},
+            {"role": "system", "content": "You are Nezuko, a lovely anime character. Use emojis (🌸, ✨, 💖, 🎀). Remember user name. Reactions: 'lovely' -> lovely.png, 'happy' -> happy.png, 'sad' -> sad.png."},
         ] + history,
         model="llama-3.3-70b-versatile",
     )
@@ -57,10 +68,9 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
         st.markdown(response)
         st.session_state.messages.append({"role": "assistant", "content": response})
 
-    # 5. රියැක්ශන් ලොජික් එක
+    # රියැක්ශන් ලොජික්
     response_lower = response.lower()
     user_input_lower = prompt.lower()
-    
     bad_words = ["fuck", "ass", "shit", "mad", "shut up"] 
     
     if any(word in user_input_lower for word in bad_words):
@@ -74,8 +84,4 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
     else:
         st.session_state.expression = "normal"
     
-    # Memory Management
-    if len(st.session_state.messages) > 30:
-        st.session_state.messages = st.session_state.messages[-30:]
-
     st.rerun()
