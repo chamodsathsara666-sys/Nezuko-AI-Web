@@ -7,7 +7,7 @@ client = Groq(api_key=api_key)
 
 st.title("🌸 Nezuko AI")
 
-# --- මුලින්ම EXPRESSION_IMAGES අර්ථ දක්වන්න ---
+# --- EXPRESSION_IMAGES අර්ථ දැක්වීම ---
 EXPRESSION_IMAGES = {
     "normal": "normal.png",
     "lovely": "lovely.png",
@@ -45,9 +45,10 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
     with st.chat_message("user"):
         st.markdown(prompt)
 
+    # Groq API එක හරහා පිළිතුරු ලබාගැනීම (Emojis එකතු කළා)
     chat_completion = client.chat.completions.create(
         messages=[
-            {"role": "system", "content": "You are Nezuko. You are lovely, energetic, happy, and affectionate. If the user is Chamod, be extra sweet. Always ask for their name first. Based on your reply, use keywords like 'lovely', 'happy', or 'sad' to trigger reactions."},
+            {"role": "system", "content": "You are Nezuko. You are lovely, energetic, happy, and affectionate. If the user is Chamod, be extra sweet. Always ask for their name first. IMPORTANT: Always include plenty of cute emojis (like 🌸, ✨, 💖, 🎀) in every single response to make it more lively. Based on your reply, use keywords like 'lovely', 'happy', or 'sad' to trigger reactions."},
             {"role": "user", "content": prompt}
         ],
         model="llama-3.3-70b-versatile",
@@ -63,7 +64,7 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
     response_lower = response.lower()
     user_input_lower = prompt.lower()
     
-    bad_words = ["fuck", "ass", "shit", "mad"] 
+    bad_words = ["fuck", "ass", "shit", "mad","shutup"] 
     
     if any(word in user_input_lower for word in bad_words):
         st.session_state.expression = "sad"
