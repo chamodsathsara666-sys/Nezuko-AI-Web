@@ -1,7 +1,7 @@
 import streamlit as st
 from groq import Groq
 
-# මෙතනට ඔයාගේ සැබෑ API Key එක දාන්න (උදාහරණයක් ලෙස gsk_...)
+# API Key එක කෙලින්ම කෝඩ් එකේ දාලා තියෙන්නේ
 api_key = "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"
 client = Groq(api_key=api_key)
 
