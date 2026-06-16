@@ -12,7 +12,7 @@ st.markdown("""
             text-align: center;
             font-size: 2.5rem; /* ටිකක් ලොකු වෙන්න */
             margin-top: 5px;
-            margin-bottom: 5px;
+            margin-bottom: 20px;
         }
         /* Mobile එකේදී පොඩි වෙනස්කම් ඕන නම් මෙතන දාන්න පුළුවන් */
         @media only screen and (max-width: 600px) {
