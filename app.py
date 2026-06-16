@@ -50,13 +50,15 @@ st.markdown(f"""
         right: 20px;
         width: 100px;
         height: 100px;
-        border-radius: 50%;
+        /* රවුම වෙනුවට හතරැස් හැඩය සඳහා */
+        border-radius: 15px; 
         border: 4px solid #ff99cc;
         z-index: 10000;
         box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         cursor: grab;
         user-select: none;
         -webkit-user-drag: none;
+  
     }}
     .nezuko-float:active {{ cursor: grabbing; }}
     </style>
