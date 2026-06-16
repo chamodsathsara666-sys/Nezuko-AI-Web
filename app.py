@@ -49,6 +49,17 @@ if bg_img:
 img_base64 = st.session_state.cached_images.get(st.session_state.expression)
 if img_base64: st.markdown(f'<img src="{img_base64}" class="nezuko-float">', unsafe_allow_html=True)
 
+
+song_list = ["song1.mp3", "song2.mp3", "song3.mp3"] 
+song_keywords = ["sing a song", "play song", "සින්දුවක් කියන්න", "සින්දුවක් ඕන", "සින්දු","song", "i need song", "play a song" , "play song"]
+
+if st.session_state.play_song and st.session_state.selected_song:
+    st.audio(st.session_state.selected_song, format="audio/mp3")
+    if st.button("සින්දුව නතර කරන්න 🛑"):
+        st.session_state.play_song = False
+        st.rerun()
+
+
 # Chat Display
 for msg in st.session_state.messages:
     with st.chat_message(msg["role"], avatar="nezuko.png" if msg["role"] == "assistant" else None):
@@ -86,12 +97,3 @@ if prompt := st.chat_input(" Ask from Nezuko ..."):
     
     st.rerun()
 
-  # 4. සින්දු Logic
-song_list = ["song1.mp3", "song2.mp3", "song3.mp3"] 
-song_keywords = ["sing a song", "play song", "සින්දුවක් කියන්න", "සින්දුවක් ඕන", "සින්දු","song", "i need song", "play a song" , "play song"]
-
-if st.session_state.play_song and st.session_state.selected_song:
-    st.audio(st.session_state.selected_song, format="audio/mp3")
-    if st.button("සින්දුව නතර කරන්න 🛑"):
-        st.session_state.play_song = False
-        st.rerun()
