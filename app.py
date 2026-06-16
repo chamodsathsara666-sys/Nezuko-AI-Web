@@ -169,7 +169,7 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
     user_input_lower = prompt.lower()
     
     # ඇය AI/Robo ද කියලා අහන ප්‍රශ්න හඳුනාගැනීම
-    ai_check_words = ["ai", "robot", "robo", "artificial intelligence", "are you real", "machine" , "Shut up" , "shutup","shut up"]
+    ai_check_words = ["ai", "robot", "robo", "artificial intelligence", "are you real", "machine" , "Shut up" , "shutup","shut up" , "cry"]
 
     # 1. තරහා යන වචන (පළමු ප්‍රමුඛතාවය)
     if any(word in user_input_lower for word in ["stupid", "idiot", "hate", "ugly", "fuck", "ass", "shit"]):
