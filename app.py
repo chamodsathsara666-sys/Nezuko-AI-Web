@@ -2,7 +2,7 @@ import streamlit as st
 from groq import Groq
 import base64
 import time
- import random # 1. මෙය උඩින්ම එකතු කරන්න
+import random # 1. මෙය උඩින්ම එකතු කරන්න
 
 # API Setup
 api_key = st.secrets["GROQ_API_KEY"]
