@@ -418,42 +418,16 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
 
     # User ගේ පිළිතුර පරීක්ෂා කිරීම
 
-    if st.session_state.get("ask_song"):
-
-        if any(word in prompt.lower() for word in ["yes", "ok", "fine", "sure"]):
-
-            st.session_state.play_song = True
-
-            st.session_state.ask_song = False 
-
-            st.rerun() 
-
-        else:
-
-            st.session_state.ask_song = False
-
-
-
-    # සින්දුව ප්ලේ කරන කොටස (මෙය ඉහත කොටසට පිටින්, පේජ් එකේ ඕනෑම තැනක තිබිය හැක)
-
-    if st.session_state.get("play_song"):
-
+# සින්දුව ප්ලේ කිරීමේ කොටස (මේක පරණ එක වෙනුවට දාන්න)
+    if st.session_state.play_song:
         st.markdown("🌸 **Nezuko:** Hmm-hmm! 🎶")
-
-        st.markdown("*Now hush, little baby, don't you cry... Everything's gonna be alright...* 🎀")
-
+        st.markdown("*Hush, little baby, don't you cry, Papa's gonna sing you a lullaby...* 🎀")
         
-
         try:
-
-            # සින්දුව ප්ලේ කිරීම
-
             st.audio("song.mp3", format="audio/mp3", autoplay=True)
-
-            # සින්දුව ප්ලේ වුණාම ආයෙත් ප්ලේ වෙන්න බැරි වෙන්න False කරන්න
-
-            st.session_state.play_song = False
-
         except Exception as e:
-
-            st.error("Could not find 'song.mp3' file.")
+            st.error("Could not play the song.")
+        
+        if st.button("Stop the song"):
+            st.session_state.play_song = False
+            st.rerun()
