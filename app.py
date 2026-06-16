@@ -152,7 +152,7 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
     user_input_lower = prompt.lower()
     
     # 1. තරහා යන වචන
-    angry_words = ["stupid", "idiot", "hate", "ugly", "shut up".] 
+    angry_words = ["stupid", "idiot", "hate", "ugly", "shut up"] 
     # 2. හිතාගන්න බැරි වචන
     confused_words = ["what", "how", "why", "meaning", "unknown", "huh", "confusing"]
     # 3. හුරතල් වචන
