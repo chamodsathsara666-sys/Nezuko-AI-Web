@@ -84,12 +84,11 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
     # 3. සින්දුවක් නොවේ නම් පමණක් AI Call එකට යන්න
     else:
         with st.spinner("Nezuko හිතමින් ඉන්නේ... 🌸"):
-            # ඔබේ AI Call එකේ කොටස මෙතනට දාන්න
-        time.sleep(1)
-        history = st.session_state.messages[-6:]
-        chat_completion = client.chat.completions.create(
-            messages=[{"role": "system", "content": "You are Nezuko. Keep answers short, cute, and end with an emoji 🌸. If user is sad, ask to sing a song."}] + history,
-            model="llama-3.1-8b-instant"
+            
+               history = st.session_state.messages[-6:]
+               chat_completion = client.chat.completions.create(
+                    messages=[{"role": "system", "content": "You are Nezuko. Keep answers short, cute, and end with an emoji 🌸. If user is sad, ask to sing a song."}] + history,
+                  model="llama-3.1-8b-instant"
         )
         response = chat_completion.choices[0].message.content
         st.session_state.messages.append({"role": "assistant", "content": response})
