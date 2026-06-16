@@ -204,26 +204,7 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
 
     # 5. චැට් ඉන්පුට් කොටසේ මැද හරියට මේක දාන්න
     
-   # සින්දුව ප්ලේ කිරීමට session_state භාවිතා කිරීම
-    if "play_song" not in st.session_state:
-        st.session_state.play_song = False
-
-    # සින්දුවක් කියන්න ඕනෙද කියලා අහන ලොජික්
-    if "sad" in st.session_state.expression and not st.session_state.play_song:
-        if "asked_song" not in st.session_state:
-            st.session_state.ask_song = True
-            st.session_state.asked_song = True
-            st.markdown("🌸 **Nezuko:** I'm worried about you... would you like me to sing a sweet song for you?")
-    
-    # User ගේ පිළිතුර පරීක්ෂා කිරීම
-    if st.session_state.get("ask_song") and any(word in prompt.lower() for word in ["yes", "ok", "fine", "sure"]):
-        st.session_state.play_song = True
-        st.session_state.ask_song = False
-        st.rerun() # සින්දුව ප්ලේ කිරීමට පේජ් එක අලුත් කරන්න
-
-   
-            
-  # සින්දුව ප්ලේ කිරීමේ කොටස
+    # සින්දුව ප්ලේ කිරීමේ කොටස
     if st.session_state.play_song:
         st.markdown("""
         🌸 **Nezuko:** Hmm-hmm! 🎶  
