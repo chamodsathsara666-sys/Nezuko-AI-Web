@@ -50,7 +50,7 @@ st.markdown(f"""
     .nezuko-float {{
         position: fixed;
         top: 200px;
-        right: 100px;
+        right: center;
         width: 150px;
         height: 150px;
         /* රවුම වෙනුවට හතරැස් හැඩය සඳහා */
