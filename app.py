@@ -214,14 +214,16 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
             st.session_state.ask_song = False # ප්‍රශ්නය අහලා ඉවරයි
             st.rerun() # ක්ෂණිකව සින්දුව ප්ලේ වෙන්න rerun කරන්න
             # සින්දුව ප්ලේ කරන කොටස (මෙය 218 වන පේළියට පසුව එකතු කරන්න)
-    if st.session_state.get("play_song"):
-        st.markdown("🌸 **Nezuko:** Hmm-hmm! 🎶")
-        st.markdown("*Now hush, little baby, don't you cry...* 🎀")
-        
         try:
             st.audio("song.mp3", format="audio/mp3", autoplay=True)
             # සින්දුව ප්ලේ වුණාම ආයෙත් play වෙන්න බැරි වෙන්න False කරන්න
             st.session_state.play_song = False
+
+         if st.session_state.get("play_song"):
+        st.markdown("🌸 **Nezuko:** Hmm-hmm! 🎶")
+        st.markdown("*Now hush, little baby, don't you cry...* 🎀")
+        
+        
         except Exception as e:
             st.error("Could not find 'song.mp3' file.")
         else:
