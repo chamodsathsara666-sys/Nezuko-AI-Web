@@ -22,6 +22,9 @@ if "cached_images" not in st.session_state:
         "lovely": "lovely.png", 
         "excited": "happy.png", 
         "sad": "sad.png",
+        "angry": "angry.png",
+        "cute": "cute.png",
+        "confused": "confused.png",
         "bg": "background.png"
     }
     for key, path in paths.items():
