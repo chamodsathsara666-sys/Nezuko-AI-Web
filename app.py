@@ -49,7 +49,7 @@ st.markdown(f"""
 
     .nezuko-float {{
         position: fixed;
-        top: 80px;
+        top: 100px;
         right: 20px;
         width: 100px;
         height: 100px;
