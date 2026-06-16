@@ -60,30 +60,26 @@ if st.session_state.play_song and st.session_state.selected_song:
         st.session_state.play_song = False
         st.rerun()
 
-# 5. චැට් ඉන්පුට් සහ Reaction Logic
-if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
-    # සින්දු පරීක්ෂාව
-    if any(k in prompt.lower() for k in song_keywords):
-        st.session_state.play_song = True
-        st.session_state.selected_song = random.choice(song_list)
-        st.rerun()
-        
 
 # Chat Display
 for msg in st.session_state.messages:
     with st.chat_message(msg["role"], avatar="nezuko.png" if msg["role"] == "assistant" else None):
         st.markdown(msg["content"])
 
+
 # Chat Input
 if prompt := st.chat_input(" Ask from Nezuko ..."):
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"): st.markdown(prompt)
 
-    # Song Logic
-    if st.session_state.get("ask_song") and any(w in prompt.lower() for w in ["yes", "ok", "sure"]):
-        st.session_state.play_song = True
-        st.session_state.ask_song = False
-    
+
+  if any(k in prompt.lower() for k in song_keywords):
+       st.session_state.play_song = True
+       st.session_state.selected_song = random.choice(song_list)
+       st.rerun()
+        
+
+ 
     # API Call
     with st.spinner("Nezuko හිතමින් ඉන්නේ... 🌸"):
         time.sleep(1)
