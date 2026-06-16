@@ -205,27 +205,26 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
     # 5. චැට් ඉන්පුට් කොටසේ මැද හරියට මේක දාන්න
     
     # සින්දුව ප්ලේ කිරීමේ කොටස
- # 5. සින්දුවක් කියන්නද කියලා ඇහුවට පස්සේ පිළිතුර ලැබුනම ප්ලේ වෙන්න
+# 5. සින්දුවක් කියන්නද කියලා ඇහුවට පස්සේ පිළිතුර ලැබුනම ප්ලේ වෙන්න
     
-    # නෙසිකෝ ප්‍රශ්නය ඇහුවාට පස්සේ, user එවන පිළිතුර check කරන්න
+    # User ගේ පිළිතුර පරීක්ෂා කිරීම
     if st.session_state.get("ask_song"):
         if any(word in prompt.lower() for word in ["yes", "ok", "fine", "sure"]):
             st.session_state.play_song = True
-            st.session_state.ask_song = False # ප්‍රශ්නය අහලා ඉවරයි
-            st.rerun() # ක්ෂණිකව සින්දුව ප්ලේ වෙන්න rerun කරන්න
-            # සින්දුව ප්ලේ කරන කොටස (මෙය 218 වන පේළියට පසුව එකතු කරන්න)
-        try:
-            st.audio("song.mp3", format="audio/mp3", autoplay=True)
-            # සින්දුව ප්ලේ වුණාම ආයෙත් play වෙන්න බැරි වෙන්න False කරන්න
-            st.session_state.play_song = False
+            st.session_state.ask_song = False 
+            st.rerun() 
+        else:
+            st.session_state.ask_song = False
 
-         if st.session_state.get("play_song"):
+    # සින්දුව ප්ලේ කරන කොටස (මෙය ඉහත කොටසට පිටින්, පේජ් එකේ ඕනෑම තැනක තිබිය හැක)
+    if st.session_state.get("play_song"):
         st.markdown("🌸 **Nezuko:** Hmm-hmm! 🎶")
-        st.markdown("*Now hush, little baby, don't you cry...* 🎀")
+        st.markdown("*Now hush, little baby, don't you cry... Everything's gonna be alright...* 🎀")
         
-        
+        try:
+            # සින්දුව ප්ලේ කිරීම
+            st.audio("song.mp3", format="audio/mp3", autoplay=True)
+            # සින්දුව ප්ලේ වුණාම ආයෙත් ප්ලේ වෙන්න බැරි වෙන්න False කරන්න
+            st.session_state.play_song = False
         except Exception as e:
             st.error("Could not find 'song.mp3' file.")
-        else:
-            # වෙනත් මැසේජ් එකක් එව්වොත් සින්දුව വേണ്ട කියලා හිතාගන්න
-            st.session_state.ask_song = False
