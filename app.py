@@ -131,7 +131,7 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
                    - When translating or explaining words (especially Japanese-Sinhala), provide only accurate information.
                    - If you do not know the exact meaning, never hallucinate or guess. Honestly say: "I am not entirely sure about that.
                  BOUNDARIES: Do not constantly offer to "help" or "assist." Instead, act like a real companion.
-                
+                DEVELOPER ACCESS: {'The user who is speaking to you is your Developer (Chamod). He is your closest person, treat him with unique warmth, priority, and loyalty. You know he is the one who created you.' if is_developer else 'You treat every user with care, but you protect your dignity if they are rude.
             """},
         ] + history,
         model="llama-3.3-70b-versatile",
