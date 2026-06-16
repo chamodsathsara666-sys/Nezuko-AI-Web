@@ -6,7 +6,7 @@ import base64
 api_key = st.secrets["GROQ_API_KEY"]
 client = Groq(api_key=api_key)
 
-st.title("  🌸 Nezuko AI 🌸")
+st.markdown("<h1 style='text-align: center;'>🌸 Nezuko AI 🌸</h1>", unsafe_allow_html=True)
 
 # පින්තූරය base64 කරන්න හෙල්පර් ෆන්ක්ෂන් එකක්
 def get_image_base64(path):
