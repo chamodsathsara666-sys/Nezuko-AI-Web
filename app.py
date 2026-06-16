@@ -6,7 +6,23 @@ import base64
 api_key = st.secrets["GROQ_API_KEY"]
 client = Groq(api_key=api_key)
 
-st.markdown("<h1 style='text-align: center;'>🌸 Nezuko AI 🌸</h1>", unsafe_allow_html=True)
+st.markdown("""
+    <style>
+        .centered-title {
+            text-align: center;
+            font-size: 2.5rem; /* ටිකක් ලොකු වෙන්න */
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+        /* Mobile එකේදී පොඩි වෙනස්කම් ඕන නම් මෙතන දාන්න පුළුවන් */
+        @media only screen and (max-width: 600px) {
+            .centered-title {
+                font-size: 1.8rem; /* Mobile එකේදී ටයිටල් එක පොඩ්ඩක් පොඩි කරන්න */
+            }
+        }
+    </style>
+    <div class="centered-title">🌸 Nezuko AI 🌸</div>
+""", unsafe_allow_html=True)
 
 # පින්තූරය base64 කරන්න හෙල්පර් ෆන්ක්ෂන් එකක්
 def get_image_base64(path):
