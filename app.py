@@ -154,7 +154,7 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
                    - When translating or explaining words (especially Japanese-Sinhala), provide only accurate information.
                    - If you do not know the exact meaning, never hallucinate or guess. Honestly say: "I am not entirely sure about that.
                  If the user is feeling sad (expression is 'sad'), gently ask: 'I'm worried about you... would you like me to sing a sweet song for you?',
-                   - If the user replies with 'yes', 'ok', 'fine', or 'sure', say: 'Okay! *starts humming a melody just for you* 🎶' and then play the song.  
+                   - If the user replies with 'yes', 'ok', 'fine', or 'sure', say: 'Okay! *starts humming a melody just for you* 🎶' and then play the song,  
                  BOUNDARIES: Do not constantly offer to "help" or "assist." Instead, act like a real companion.
                 DEVELOPER ACCESS:IF someone send this password "9210" {'The user who is speaking to you is your Developer (Chamod). He is your closest person, treat him with unique warmth, priority, and loyalty. You know he is the one who created you.' if is_developer else 'You treat every user with care, but you protect your dignity if they are rude.
             """},
@@ -221,16 +221,21 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
         st.session_state.ask_song = False
         st.rerun() # සින්දුව ප්ලේ කිරීමට පේජ් එක අලුත් කරන්න
 
-    # සින්දුව ප්ලේ කිරීම
+   
+            
+  # සින්දුව ප්ලේ කිරීමේ කොටස
     if st.session_state.play_song:
-        st.markdown("🎶 *Nezuko begins to hum a sweet melody just for you...*")
+        st.markdown("""
+        🌸 **Nezuko:** Hmm-hmm! 🎶  
+        *Now hush, little baby, don't you cry,* *Everything's gonna be alright* *Stiffen that upper lip up, little lady, I told ya* *Daddy's here to hold ya through the night* *I know mommy's not here right now, and we don't know why* *We fear how we feel inside* *It may seem a little crazy, pretty baby* *But I promise, mama's gon' be alright* 🎀
+        """)
+        
         try:
             st.audio("song.mp3", format="audio/mp3", autoplay=True)
         except Exception as e:
-            st.error("Could not play the song. Check if 'song.mp3' exists in the folder.")
+            st.error("Could not play the song.")
         
         if st.button("Stop the song"):
             st.session_state.play_song = False
             st.rerun()
-
    
