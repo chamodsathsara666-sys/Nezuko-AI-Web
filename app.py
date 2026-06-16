@@ -50,9 +50,9 @@ st.markdown(f"""
     .nezuko-float {{
         position: fixed;
         top: 200px;
-        right: 20px;
-        width: 100px;
-        height: 100px;
+        right: 40px;
+        width: 150px;
+        height: 150px;
         /* රවුම වෙනුවට හතරැස් හැඩය සඳහා */
         border-radius: 15px; 
         border: 4px solid #ff99cc;
