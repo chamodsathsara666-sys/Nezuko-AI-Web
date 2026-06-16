@@ -85,11 +85,22 @@ if prompt := st.chat_input(" Ask from Nezuko ..."):
     
     st.rerun()
 
-# Audio Player logic එක මෙන්න මේ විදියට ලියන්න
+
+ import random # 1. මෙය උඩින්ම එකතු කරන්න
+
+# ... ඔබේ ඉතිරි කෝඩ් එක ...
+
+# සින්දුව ප්ලේ වන කොටස මෙන්න මෙහෙම හදන්න:
 if st.session_state.play_song:
-    st.audio("song.mp3", format="audio/mp3") # autoplay ඉවත් කරන්න, නැත්නම් සමහර වෙලාවට වැඩ නෑ
-    st.write("🎵 සින්දුව ප්ලේ වෙනවා... 🎶")
+    # 2. ඔබේ සින්දු ෆයිල් ටික මෙතන ලියන්න (පරිගණකයේ තියෙන නම හරියටම දෙන්න)
+    song_list = ["song1.mp3", "song2.mp3", "song3.mp3"] 
     
-    if st.button("සින්දුව නැවැත්වීමට මෙතන ඔබන්න"):
+    # 3. random එකක් තෝරන්න
+    selected_song = random.choice(song_list)
+    
+    st.audio(selected_song, format="audio/mp3")
+    st.write(f"🎵 Nezuko මේ වෙලාවේ කියන්නේ: {selected_song} 🎶")
+    
+    if st.button("නැවැත්වීමට මෙතන ඔබන්න"):
         st.session_state.play_song = False
-        st.rerun() # පිටුව නැවත ලෝඩ් කරන්න
+        st.rerun()
