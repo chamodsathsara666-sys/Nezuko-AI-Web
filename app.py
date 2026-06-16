@@ -2,6 +2,7 @@ import streamlit as st
 from groq import Groq
 import base64
 import time
+ import random # 1. මෙය උඩින්ම එකතු කරන්න
 
 # API Setup
 api_key = st.secrets["GROQ_API_KEY"]
@@ -85,8 +86,6 @@ if prompt := st.chat_input(" Ask from Nezuko ..."):
     
     st.rerun()
 
-
- import random # 1. මෙය උඩින්ම එකතු කරන්න
 
 # ... ඔබේ ඉතිරි කෝඩ් එක ...
 
