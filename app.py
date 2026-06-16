@@ -78,6 +78,6 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
 # Audio Player
 if st.session_state.play_song:
     st.audio("song.mp3", format="audio/mp3", autoplay=True)
-    if st.button("Stop Song"):
+    if st.button("continue chat"):
         st.session_state.play_song = False
         st.rerun()
