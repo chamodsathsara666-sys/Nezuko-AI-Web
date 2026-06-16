@@ -205,20 +205,14 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
     # 5. චැට් ඉන්පුට් කොටසේ මැද හරියට මේක දාන්න
     
     # සින්දුව ප්ලේ කිරීමේ කොටස
-    if st.session_state.play_song:
-        st.markdown("""
-        🌸 **Nezuko:** Hmm-hmm! 🎶  
-        *Now hush, little baby, don't you cry...* 🎀
-        """)
-        
-        try:
-            st.audio("song.mp3", format="audio/mp3", autoplay=True)
-            # සින්දුව ප්ලේ වුණාට පස්සේ ප්ලේ වෙන එක නවත්වන්න (Reset)
-            st.session_state.play_song = False 
-        except Exception as e:
-            st.error("Could not play the song.")
-        
-        # ඔයාට ඕනේ නම් විතරක් ආයෙත් ප්ලේ කරන්න බට්න් එකක්
-        if st.button("Stop the song"):
-            st.session_state.play_song = False
-            st.rerun()
+ # 5. සින්දුවක් කියන්නද කියලා ඇහුවට පස්සේ පිළිතුර ලැබුනම ප්ලේ වෙන්න
+    
+    # නෙසිකෝ ප්‍රශ්නය ඇහුවාට පස්සේ, user එවන පිළිතුර check කරන්න
+    if st.session_state.get("ask_song"):
+        if any(word in prompt.lower() for word in ["yes", "ok", "fine", "sure"]):
+            st.session_state.play_song = True
+            st.session_state.ask_song = False # ප්‍රශ්නය අහලා ඉවරයි
+            st.rerun() # ක්ෂණිකව සින්දුව ප්ලේ වෙන්න rerun කරන්න
+        else:
+            # වෙනත් මැසේජ් එකක් එව්වොත් සින්දුව വേണ്ട කියලා හිතාගන්න
+            st.session_state.ask_song = False
