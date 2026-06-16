@@ -260,9 +260,31 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
 
     history = st.session_state.messages[-4:]
 
+    # Fallback Model Logic එක මෙතනට දාන්න
+def get_ai_response(messages, history):
+    # පළමු උත්සාහය: 70b මෝඩලය
+    try:
+        chat_completion = client.chat.completions.create(
+            messages=messages + history,
+            model="llama-3.3-70b-versatile",
+        )
+        return chat_completion.choices[0].message.content
+    except Exception as e:
+        # 70b මෝඩලයේ limit එක ඉවර නම්, 8b මෝඩලයට මාරු වන්න
+        st.warning("Switching to backup model...")
+        chat_completion = client.chat.completions.create(
+            messages=messages + history,
+            model="llama-3.1-8b-instant", 
+        )
+        return chat_completion.choices[0].message.content
 
-
-    chat_completion = client.chat.completions.create(
+    # 265 වන පේළියට පසුව තිබූ පරණ කොටස අයින් කර මෙය දාන්න:
+    system_prompt = {"role": "system", "content": "You are Nezuko, a sweet anime girl. Always act in character. If the user is sad, ask: 'I'm worried about you... would you like me to sing a sweet song for you?'"}
+    response = get_ai_response([system_prompt], history)
+    
+    st.session_state.messages.append({"role": "assistant", "content": response})
+    with st.chat_message("assistant", avatar="nezuko.png"): 
+        st.markdown(response)
 
         messages=[
 
