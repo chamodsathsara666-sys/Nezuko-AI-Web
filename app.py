@@ -1,8 +1,8 @@
 import streamlit as st
 from groq import Groq
+import random 
 import base64
 import time
-import random # 1. මෙය උඩින්ම එකතු කරන්න
 
 # API Setup
 api_key = st.secrets["GROQ_API_KEY"]
@@ -39,6 +39,7 @@ if "cached_images" not in st.session_state:
 if "expression" not in st.session_state: st.session_state.expression = "normal"
 if "messages" not in st.session_state: st.session_state.messages = []
 if "play_song" not in st.session_state: st.session_state.play_song = False
+if "selected_song" not in st.session_state: st.session_state.selected_song = None    
 
 # Background Image
 bg_img = st.session_state.cached_images.get("bg")
@@ -59,6 +60,14 @@ if st.session_state.play_song and st.session_state.selected_song:
         st.session_state.play_song = False
         st.rerun()
 
+# 5. චැට් ඉන්පුට් සහ Reaction Logic
+if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
+    # සින්දු පරීක්ෂාව
+    if any(k in prompt.lower() for k in song_keywords):
+        st.session_state.play_song = True
+        st.session_state.selected_song = random.choice(song_list)
+        st.rerun()
+        
 
 # Chat Display
 for msg in st.session_state.messages:
