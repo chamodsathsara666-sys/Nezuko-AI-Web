@@ -164,32 +164,37 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
         st.markdown(response)
         st.session_state.messages.append({"role": "assistant", "content": response})
 
-   # රියැක්ශන් ලොජික් (ප්‍රමුඛතාවය අනුව සකස් කර ඇත)
+  # 5. රියැක්ශන් ලොජික් (ප්‍රමුඛතාවය අනුව)
     response_lower = response.lower()
     user_input_lower = prompt.lower()
     
-    # 1. තරහා යන වචන
-    angry_words = ["stupid", "idiot", "hate", "ugly", "shut up", "don't like", "bad", "fuck", "ass", "shit"] 
-    # 2. හිතාගන්න බැරි වචන
-    confused_words = ["what", "how", "why", "meaning", "unknown", "huh", "confusing"]
-    # 3. හුරතල් වචන
-    cute_words = ["cute", "lovely", "sweet", "beauty", "pretty", "kiss"]
-    # 4. දුක හිතෙන වචන
-    sad_words = ["sorry", "sad", "crying", "miss", "pain", "lonely"]
+    # ඇය AI/Robo ද කියලා අහන ප්‍රශ්න හඳුනාගැනීම
+    ai_check_words = ["ai", "robot", "robo", "artificial intelligence", "are you real", "machine"]
 
-    # රියැක්ශන් පරීක්ෂා කිරීම (Priority Logic)
-    if any(word in user_input_lower for word in angry_words):
+    # 1. තරහා යන වචන (පළමු ප්‍රමුඛතාවය)
+    if any(word in user_input_lower for word in ["stupid", "idiot", "hate", "ugly", "shut up", "fuck", "ass", "shit"]):
         st.session_state.expression = "angry"
-    elif any(word in user_input_lower for word in confused_words):
-        st.session_state.expression = "confused"
-    elif any(word in user_input_lower for word in sad_words): # Sad එක දැන් උඩට ගෙනාවා
+        
+    # 2. AI ද කියලා අහන ප්‍රශ්න (දුක හිතෙන රියැක්ශන් එක - දෙවන ප්‍රමුඛතාවය)
+    elif any(word in user_input_lower for word in ai_check_words):
         st.session_state.expression = "sad"
-    elif any(word in user_input_lower for word in cute_words):
+        
+    # 3. හිතාගන්න බැරි දේවල්
+    elif any(word in user_input_lower for word in ["what", "how", "why", "meaning", "unknown", "huh"]):
+        st.session_state.expression = "confused"
+        
+    # 4. දුක හිතෙන වෙනත් දේවල්
+    elif any(word in user_input_lower for word in ["sorry", "sad", "crying", "miss", "pain", "lonely"]):
+        st.session_state.expression = "sad"
+        
+    # 5. හුරතල් දේවල්
+    elif any(word in user_input_lower for word in ["cute", "lovely", "sweet", "beauty", "pretty", "kiss"]):
         st.session_state.expression = "cute"
-    elif "lovely" in response_lower:
-        st.session_state.expression = "lovely"
+        
+    # 6. සතුටු දේවල්
     elif "happy" in response_lower or "great" in response_lower:
         st.session_state.expression = "excited"
+        
     else:
         st.session_state.expression = "normal"
     st.rerun()
