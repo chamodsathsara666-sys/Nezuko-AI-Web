@@ -85,14 +85,11 @@ if prompt := st.chat_input(" Ask from Nezuko ..."):
     
     st.rerun()
 
-# Audio Player
+# Audio Player logic එක මෙන්න මේ විදියට ලියන්න
 if st.session_state.play_song:
-    st.audio("song.mp3", format="audio/mp3", autoplay=True)
-    if st.button("continue chat"):
+    st.audio("song.mp3", format="audio/mp3") # autoplay ඉවත් කරන්න, නැත්නම් සමහර වෙලාවට වැඩ නෑ
+    st.write("🎵 සින්දුව ප්ලේ වෙනවා... 🎶")
+    
+    if st.button("සින්දුව නැවැත්වීමට මෙතන ඔබන්න"):
         st.session_state.play_song = False
-        st.rerun()
-
-
-
-import streamlit as st
-st.audio("song.mp3")
+        st.rerun() # පිටුව නැවත ලෝඩ් කරන්න
