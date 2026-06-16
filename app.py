@@ -91,3 +91,8 @@ if st.session_state.play_song:
     if st.button("continue chat"):
         st.session_state.play_song = False
         st.rerun()
+
+
+
+import streamlit as st
+st.audio("song.mp3")
