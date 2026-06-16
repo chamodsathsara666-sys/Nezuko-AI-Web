@@ -68,20 +68,23 @@ for msg in st.session_state.messages:
 
 
 # Chat Input
-if prompt := st.chat_input(" Ask from Nezuko ..."):
+if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
+    # 1. පාවිච්චි කරන්නාගේ මැසේජ් එක ඉතිහාසයට දාන්න
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"): st.markdown(prompt)
 
-
-  if any(k in prompt.lower() for k in song_keywords):
-       st.session_state.play_song = True
-       st.session_state.selected_song = random.choice(song_list)
-       st.rerun()
-        
-
- 
-    # API Call
-    with st.spinner("Nezuko හිතමින් ඉන්නේ... 🌸"):
+    # 2. සින්දු ඉල්ලීම පරීක්ෂා කරන්න
+    if any(k in prompt.lower() for k in song_keywords):
+        st.session_state.play_song = True
+        st.session_state.selected_song = random.choice(song_list)
+        # මෙතන rerun කරන්න කලින් AI එකටත් සින්දුවක් ඉල්ලූ බව දැනගන්න තියන්න
+        st.session_state.messages.append({"role": "assistant", "content": "Sure! Playing a song for you! 🎶"})
+        st.rerun()
+    
+    # 3. සින්දුවක් නොවේ නම් පමණක් AI Call එකට යන්න
+    else:
+        with st.spinner("Nezuko හිතමින් ඉන්නේ... 🌸"):
+            # ඔබේ AI Call එකේ කොටස මෙතනට දාන්න
         time.sleep(1)
         history = st.session_state.messages[-6:]
         chat_completion = client.chat.completions.create(
