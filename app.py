@@ -51,6 +51,7 @@ st.markdown(f"""
         position: fixed;
         top: 200px;
         right: center;
+        left: center;
         width: 150px;
         height: 150px;
         /* රවුම වෙනුවට හතරැස් හැඩය සඳහා */
