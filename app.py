@@ -54,7 +54,7 @@ for msg in st.session_state.messages:
         st.markdown(msg["content"])
 
 # Chat Input
-if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
+if prompt := st.chat_input(" Ask from Nezuko ..."):
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"): st.markdown(prompt)
 
@@ -88,6 +88,6 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
 # Audio Player
 if st.session_state.play_song:
     st.audio("song.mp3", format="audio/mp3", autoplay=True)
-    if st.button("නැවැත්වීමට මෙතන ඔබන්න"):
+    if st.button("continue chat"):
         st.session_state.play_song = False
         st.rerun()
