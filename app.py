@@ -164,30 +164,32 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
         st.markdown(response)
         st.session_state.messages.append({"role": "assistant", "content": response})
 
-    # රියැක්ශන් ලොජික්
+   # රියැක්ශන් ලොජික් (ප්‍රමුඛතාවය අනුව සකස් කර ඇත)
     response_lower = response.lower()
     user_input_lower = prompt.lower()
     
     # 1. තරහා යන වචන
-    angry_words = ["stupid", "idiot", "hate", "ugly", "shut up"] 
+    angry_words = ["stupid", "idiot", "hate", "ugly", "shut up", "don't like", "bad", "fuck", "ass", "shit"] 
     # 2. හිතාගන්න බැරි වචන
     confused_words = ["what", "how", "why", "meaning", "unknown", "huh", "confusing"]
     # 3. හුරතල් වචන
-    cute_words = ["cute", "lovely", "sweet", "beauty", "pretty"]
+    cute_words = ["cute", "lovely", "sweet", "beauty", "pretty", "kiss"]
+    # 4. දුක හිතෙන වචන
+    sad_words = ["sorry", "sad", "crying", "miss", "pain", "lonely"]
 
-    # රියැක්ශන් පරීක්ෂා කිරීම
+    # රියැක්ශන් පරීක්ෂා කිරීම (Priority Logic)
     if any(word in user_input_lower for word in angry_words):
         st.session_state.expression = "angry"
     elif any(word in user_input_lower for word in confused_words):
         st.session_state.expression = "confused"
+    elif any(word in user_input_lower for word in sad_words): # Sad එක දැන් උඩට ගෙනාවා
+        st.session_state.expression = "sad"
     elif any(word in user_input_lower for word in cute_words):
         st.session_state.expression = "cute"
-    elif "lovely" in response_lower or "kiss" in response_lower:
+    elif "lovely" in response_lower:
         st.session_state.expression = "lovely"
     elif "happy" in response_lower or "great" in response_lower:
         st.session_state.expression = "excited"
-    elif "sorry" in response_lower or "sad" in response_lower:
-        st.session_state.expression = "sad"
     else:
         st.session_state.expression = "normal"
     st.rerun()
