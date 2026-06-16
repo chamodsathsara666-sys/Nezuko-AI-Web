@@ -227,15 +227,17 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
     if st.session_state.play_song:
         st.markdown("""
         🌸 **Nezuko:** Hmm-hmm! 🎶  
-        *Now hush, little baby, don't you cry,* *Everything's gonna be alright* *Stiffen that upper lip up, little lady, I told ya* *Daddy's here to hold ya through the night* *I know mommy's not here right now, and we don't know why* *We fear how we feel inside* *It may seem a little crazy, pretty baby* *But I promise, mama's gon' be alright* 🎀
+        *Now hush, little baby, don't you cry...* 🎀
         """)
         
         try:
             st.audio("song.mp3", format="audio/mp3", autoplay=True)
+            # සින්දුව ප්ලේ වුණාට පස්සේ ප්ලේ වෙන එක නවත්වන්න (Reset)
+            st.session_state.play_song = False 
         except Exception as e:
             st.error("Could not play the song.")
         
+        # ඔයාට ඕනේ නම් විතරක් ආයෙත් ප්ලේ කරන්න බට්න් එකක්
         if st.button("Stop the song"):
             st.session_state.play_song = False
             st.rerun()
-   
