@@ -17,7 +17,7 @@ st.markdown("""
         /* Mobile එකේදී පොඩි වෙනස්කම් ඕන නම් මෙතන දාන්න පුළුවන් */
         @media only screen and (max-width: 600px) {
             .centered-title {
-                font-size: 1.8rem; /* Mobile එකේදී ටයිටල් එක පොඩ්ඩක් පොඩි කරන්න */
+                font-size: 2.3rem; /* Mobile එකේදී ටයිටල් එක පොඩ්ඩක් පොඩි කරන්න */
             }
         }
     </style>
