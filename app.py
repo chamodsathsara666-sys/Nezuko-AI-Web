@@ -258,7 +258,7 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
 
 
 
-    history = st.session_state.messages[-15:]
+    history = st.session_state.messages[-4:]
 
 
 
@@ -317,8 +317,7 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
                 DEVELOPER ACCESS:IF someone send this password "9210" {'The user who is speaking to you is your Developer (Chamod). He is your closest person, treat him with unique warmth, priority, and loyalty. You know he is the one who created you.' if is_developer else 'You treat every user with care, but you protect your dignity if they are rude.
 
             """},
-
-        ] + history,
+    ] + history,
 
         model="llama-3.3-70b-versatile",
 
