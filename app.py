@@ -52,7 +52,7 @@ if img_base64: st.markdown(f'<img src="{img_base64}" class="nezuko-float">', uns
 
 
 song_list = ["song1.mp3", "song2.mp3", "song3.mp3"] 
-song_keywords = ["sing a song", "play song", "සින්දුවක් කියන්න", "සින්දුවක් ඕන", "සින්දු","song", "i need song", "play a song" , "play song"]
+song_keywords = ["sing a song", "play song", "සින්දුවක් කියන්න", "සින්දුවක් ඕන", "සින්දු","song", "i need song", "play a song" , "play song","Sing a song"]
 
 if st.session_state.play_song and st.session_state.selected_song:
     st.audio(st.session_state.selected_song, format="audio/mp3")
