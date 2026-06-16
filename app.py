@@ -127,10 +127,21 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
     # රියැක්ශන් ලොජික්
     response_lower = response.lower()
     user_input_lower = prompt.lower()
-    bad_words = ["fuck", "ass", "shit", "mad", "shut up"] 
     
-    if any(word in user_input_lower for word in bad_words):
-        st.session_state.expression = "sad"
+    # 1. තරහා යන වචන
+    angry_words = ["stupid", "idiot", "hate", "ugly", "shut up", "don't like", "bad"] 
+    # 2. හිතාගන්න බැරි වචන
+    confused_words = ["what", "how", "why", "meaning", "unknown", "huh", "confusing"]
+    # 3. හුරතල් වචන
+    cute_words = ["cute", "lovely", "sweet", "beauty", "pretty"]
+
+    # රියැක්ශන් පරීක්ෂා කිරීම
+    if any(word in user_input_lower for word in angry_words):
+        st.session_state.expression = "angry"
+    elif any(word in user_input_lower for word in confused_words):
+        st.session_state.expression = "confused"
+    elif any(word in user_input_lower for word in cute_words):
+        st.session_state.expression = "cute"
     elif "lovely" in response_lower or "kiss" in response_lower:
         st.session_state.expression = "lovely"
     elif "happy" in response_lower or "great" in response_lower:
@@ -139,5 +150,4 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
         st.session_state.expression = "sad"
     else:
         st.session_state.expression = "normal"
-    
     st.rerun()
