@@ -319,7 +319,7 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
             """},
     ] + history,
 
-        model="llama-3.1-8b-instant",
+        model="llama-3.3-70b-versatile",
 
     )
 
