@@ -5,6 +5,8 @@ import base64
 # 1. API Key එක
 api_key = st.secrets["GROQ_API_KEY"]
 client = Groq(api_key=api_key)
+# Developer Check
+is_developer = True # ඔයා Developer නිසා මේක True කරන්න
 
 st.markdown("""
     <style>
