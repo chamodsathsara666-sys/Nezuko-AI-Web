@@ -341,7 +341,7 @@ def get_ai_response(messages, history):
             """},
     ] + history,
 
-        model="llama-3.3-70b-versatile",)
+        model="llama-3.3-70b-versatile",
 
     
 
