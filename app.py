@@ -404,22 +404,6 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
         st.session_state.expression = "normal"
 
 
-# --- සින්දුව ප්ලේ කිරීමේ Logic එක ---
-if st.session_state.get("play_song"):
-    st.markdown("🌸 **Nezuko:** Hmm-hmm! 🎶")
-    st.markdown("*Now hush, little baby, don't you cry... Everything's gonna be alright...* 🎀")
-    
-    try:
-        # සින්දුව ප්ලේ කිරීම
-        st.audio("song.mp3", format="audio/mp3", autoplay=True)
-        
-        # සින්දුව ප්ලේ වීමෙන් පසු ප්ලේ බට්න් එක නැවත සකස් කිරීම
-        if st.button("Stop the song"):
-            st.session_state.play_song = False
-            st.rerun()
-            
-    except Exception as e:
-        st.error("Could not find 'song.mp3' file.")
-        st.session_state.play_song = False # error එකක් ආවොත් ලූපය නවත්වන්න
+
         
 
