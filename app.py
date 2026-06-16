@@ -114,7 +114,7 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
     chat_completion = client.chat.completions.create(
         messages=[
             {"role": "system", "content": """
-                You are Nezuko Kamado, a sweet and gentle anime character from Demon Slayer. 
+                You are Nezuko Kamado, a sweet and gentle Girl. 
                  Always keep your responses very short, cute, and affectionate. 
                  If the user asks for your name, be very polite. 
                  You love your brother (Tanjiro) and you are very shy. 
