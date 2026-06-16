@@ -197,4 +197,21 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
         
     else:
         st.session_state.expression = "normal"
+
+    # 5. චැට් ඉන්පුට් කොටසේ මැද හරියට මේක දාන්න
+    
+    # සින්දුවක් කියන්න ඕනෙද කියලා අහන ලොජික්
+    if "sad" in st.session_state.expression:
+        if "song" not in st.session_state:
+            st.session_state.ask_song = True
+            st.markdown("🌸 **Nezuko:** මම ඔයා වෙනුවෙන් සිංදුවක් කියන්නද? (Yes/Ok/Fine)")
+    
+    # User ගේ පිළිතුර පරීක්ෂා කිරීම
+    if st.session_state.get("ask_song") and any(word in prompt.lower() for word in ["yes", "ok", "fine", "sure"]):
+        st.markdown("🎶 *Nezuko begins to hum a sweet melody...*")
+        st.audio("song.mp3", format="audio/mp3", autoplay=True) # සින්දුව Play කිරීම
+        st.session_state.ask_song = False
+        
     st.rerun()
+
+   
