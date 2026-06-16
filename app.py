@@ -258,12 +258,11 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
 
 
 
-    history = st.session_state.messages[-4:]
+    history = st.session_state.messages[-15:]
 
 
-      st.session_state.messages.append({"role": "assistant", "content": response})
-    with st.chat_message("assistant", avatar="nezuko.png"): 
-        st.markdown(response)
+
+    chat_completion = client.chat.completions.create(
 
         messages=[
 
@@ -318,11 +317,12 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
                 DEVELOPER ACCESS:IF someone send this password "9210" {'The user who is speaking to you is your Developer (Chamod). He is your closest person, treat him with unique warmth, priority, and loyalty. You know he is the one who created you.' if is_developer else 'You treat every user with care, but you protect your dignity if they are rude.
 
             """},
-    ] + history,
+
+        ] + history,
 
         model="llama-3.3-70b-versatile",
 
-    
+    )
 
     
 
@@ -406,5 +406,28 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
 
 
 
-        
+    # 5. චැට් ඉන්පුට් කොටසේ මැද හරියට මේක දාන්න
 
+    
+
+    # සින්දුව ප්ලේ කිරීමේ කොටස
+
+# 5. සින්දුවක් කියන්නද කියලා ඇහුවට පස්සේ පිළිතුර ලැබුනම ප්ලේ වෙන්න
+
+    
+
+    # User ගේ පිළිතුර පරීක්ෂා කිරීම
+
+    if st.session_state.get("ask_song"):
+
+        if any(word in prompt.lower() for word in ["yes", "ok", "fine", "sure"]):
+
+            st.session_state.play_song = True
+
+            st.session_state.ask_song = False 
+
+            st.rerun() 
+
+        else:
+
+            st.session_state.ask_song = False
