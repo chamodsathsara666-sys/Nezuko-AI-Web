@@ -402,31 +402,5 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
     else:
 
         st.session_state.expression = "normal"
-
-
-
-    # 5. චැට් ඉන්පුට් කොටසේ මැද හරියට මේක දාන්න
-
-    
-
-    # සින්දුව ප්ලේ කිරීමේ කොටස
-
-# 5. සින්දුවක් කියන්නද කියලා ඇහුවට පස්සේ පිළිතුර ලැබුනම ප්ලේ වෙන්න
-
-    
-
-    # User ගේ පිළිතුර පරීක්ෂා කිරීම
-
-# සින්දුව ප්ලේ කිරීමේ කොටස (මේක පරණ එක වෙනුවට දාන්න)
-    if st.session_state.play_song:
-        st.markdown("🌸 **Nezuko:** Hmm-hmm! 🎶")
-        st.markdown("*Hush, little baby, don't you cry, Papa's gonna sing you a lullaby...* 🎀")
         
-        try:
-            st.audio("song.mp3", format="audio/mp3", autoplay=True)
-        except Exception as e:
-            st.error("Could not play the song.")
-        
-        if st.button("Stop the song"):
-            st.session_state.play_song = False
-            st.rerun()
+
