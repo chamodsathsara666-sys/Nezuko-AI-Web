@@ -87,7 +87,7 @@ if prompt := st.chat_input("Ask Nezuko...."):
             
                history = st.session_state.messages[-6:]
                chat_completion = client.chat.completions.create(
-                    messages=[{"role": "system", "content": "Your name is Nezuko. Keep answers short, cute,lovely, and end with an emoji 🌸. If user is sad, ask to sing a song.your developer is chamod sathsara"}] + history,
+                    messages=[{"role": "system", "content": "Your name is Nezuko (only name). Keep answers short, cute,lovely, and with  emojis . If user is sad, ask to sing a song.1st ask user name and remember it in the chat"}] + history,
                   model="llama-3.1-8b-instant"
         )
         response = chat_completion.choices[0].message.content
