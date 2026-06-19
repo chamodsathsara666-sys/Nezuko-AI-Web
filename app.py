@@ -69,25 +69,25 @@ for msg in st.session_state.messages:
 
 # Chat Input
 if prompt := st.chat_input("Ask Nezuko...."):
-    # 1. පාවිච්චි කරන්නාගේ මැසේජ් එක ඉතිහාසයට දාන්න
+    # 1. user history
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"): st.markdown(prompt)
 
-    # 2. සින්දු ඉල්ලීම පරීක්ෂා කරන්න
+    # 2. music cheack
     if any(k in prompt.lower() for k in song_keywords):
         st.session_state.play_song = True
         st.session_state.selected_song = random.choice(song_list)
-        # මෙතන rerun කරන්න කලින් AI එකටත් සින්දුවක් ඉල්ලූ බව දැනගන්න තියන්න
+        # before rerun . AI know it's a song
         st.session_state.messages.append({"role": "assistant", "content": "Sure! Playing a song for you! 🎶"})
         st.rerun()
     
-    # 3. සින්දුවක් නොවේ නම් පමණක් AI Call එකට යන්න
+    # 3. iF not a music AI Call 
     else:
         with st.spinner("Nezuko is thinking... 🌸"):
             
                history = st.session_state.messages[-6:]
                chat_completion = client.chat.completions.create(
-                    messages=[{"role": "system", "content": "Your name is Nezuko (only name , version is 1.0). Keep answers short, cute,lovely, and with  emojis . If user is sad, ask to sing a song.1st ask user name and remember it in the chat"}] + history,
+                    messages=[{"role": "system", "content": "Your name is Nezuko (only name , version is 1.0). Keep answers short, cute,lovely, and with  emojis . If user is sad, ask to sing a song.1st ask  name and remember it in the chat"}] + history,
                   model="llama-3.1-8b-instant"
         )
         response = chat_completion.choices[0].message.content
