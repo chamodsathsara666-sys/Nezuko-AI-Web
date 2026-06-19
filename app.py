@@ -9,7 +9,7 @@ api_key = st.secrets["GROQ_API_KEY"]
 client = Groq(api_key=api_key)
 is_developer = True
 
-# --- CSS & UI සැකසුම් ---
+# --- CSS & UI ---
 st.markdown("""
     <style>
         .centered-title { text-align: center; font-size: 2.5rem; margin-top: 5px; margin-bottom: 60px; }
@@ -20,7 +20,7 @@ st.markdown("""
         }
         .stApp { background-size: cover !important; background-position: center center !important; }
     </style>
-    <div class="centered-title">🌸 Nezuko AI 🌸</div>
+    <div class="centered-title">🌸 Nezuko AI 1.0 🌸</div>
 """, unsafe_allow_html=True)
 
 def get_image_base64(path):
@@ -56,7 +56,7 @@ song_keywords = ["sing a song", "play song", "සින්දුවක් කි
 
 if st.session_state.play_song and st.session_state.selected_song:
     st.audio(st.session_state.selected_song, format="audio/mp3")
-    if st.button("සින්දුව නතර කරන්න 🛑"):
+    if st.button("stop🛑"):
         st.session_state.play_song = False
         st.rerun()
 
@@ -68,7 +68,7 @@ for msg in st.session_state.messages:
 
 
 # Chat Input
-if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
+if prompt := st.chat_input("Ask Nezuko...."):
     # 1. පාවිච්චි කරන්නාගේ මැසේජ් එක ඉතිහාසයට දාන්න
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"): st.markdown(prompt)
@@ -83,7 +83,7 @@ if prompt := st.chat_input("Nezuko ගෙන් අහන්න..."):
     
     # 3. සින්දුවක් නොවේ නම් පමණක් AI Call එකට යන්න
     else:
-        with st.spinner("Nezuko හිතමින් ඉන්නේ... 🌸"):
+        with st.spinner("Nezuko is thinking... 🌸"):
             
                history = st.session_state.messages[-6:]
                chat_completion = client.chat.completions.create(
